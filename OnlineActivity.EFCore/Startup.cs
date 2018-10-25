@@ -1,10 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using OnlineActivity.EFCore.Domain;
+using OnlineActivity.EFCore.Infra;
+using OnlineActivity.EFCore.WebApi.Utils;
+using Swashbuckle.AspNetCore.Swagger;
+using System.Data.SqlClient;
 
 namespace OnlineActivity.EFCore
 {
@@ -17,16 +21,40 @@ namespace OnlineActivity.EFCore
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            var onlineStoreSettings = Configuration.GetSection("OnlineActivitySettings").Get<OnlineActivitySettings>();
 
-            // In production, the Angular files will be served from this directory
-            services.AddSpaStaticFiles(configuration =>
+            services.AddDbContext<OnlineActivityDbContext>(options =>
             {
-                configuration.RootPath = "ClientApp/dist";
+                var connectionString = Configuration["OnlineActivitySettings:ConnectionString"];
+                var password = Configuration["DbPassword"];
+                var builder = new SqlConnectionStringBuilder(connectionString);
+
+                var connection = builder.ConnectionString;
+                options.UseSqlServer(connection);
             });
+
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<IDocumentRepository, DocumentRepository>();
+
+            services.AddSwaggerGen(s =>
+            {
+                s.SwaggerDoc("v1", new Info { Title = "OnlineActivity API", Version = "v1"});
+            });
+
+            services.AddCors(config =>
+            {
+                config.AddPolicy("OnlineActivityAngular6", policy =>
+                {
+                    policy.AllowAnyMethod();
+                    policy.AllowAnyHeader();
+                    policy.AllowAnyOrigin();
+                    policy.AllowCredentials();
+                });
+            });
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,28 +71,18 @@ namespace OnlineActivity.EFCore
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
-            app.UseSpaStaticFiles();
+            app.UseAuthentication();
 
-            app.UseMvc(routes =>
+            app.UseCors("OnlineActivityAngular6");
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(s =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
+                s.SwaggerEndpoint("/swagger/v1/swagger.json", "onlineactivity api v1");
             });
 
-            app.UseSpa(spa =>
-            {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
-
-                spa.Options.SourcePath = "ClientApp";
-
-                if (env.IsDevelopment())
-                {
-                    spa.UseAngularCliServer(npmScript: "start");
-                }
-            });
+            app.UseMvc();
         }
     }
 }

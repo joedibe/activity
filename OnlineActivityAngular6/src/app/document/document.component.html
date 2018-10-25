@@ -1,0 +1,99 @@
+<button mat-raised-button (click)="addDocument()" color="accent" class="addDocument mat-typography">
+  Add Document
+</button>
+
+<mat-form-field class="filter">
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Document by Document Name">
+</mat-form-field>
+
+<div class="mat-elevation-z8 table">
+  <mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="demo">
+      <mat-header-cell mat-header-cell *matHeaderCellDef> Options </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button mat-icon-button (click)="editDocument(element)" color="primary">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="deleteDocument(element)" color="primary">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="documentName">
+      <mat-header-cell mat-header-cell *matHeaderCellDef> Document Name </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let element"> {{element.documentName}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+      <mat-header-cell mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let element"> {{element.price}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="isActive">
+      <mat-header-cell mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let element"> {{element.isActive}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="dateCreated">
+      <mat-header-cell *matHeaderCellDef> Date Created </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.dateCreated}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons></mat-paginator>
+</div>
+
+<mat-horizontal-stepper [linear]="isLinear" #stepper *ngIf="selectDocument" style="width: 100%;">
+  <mat-step>
+    <form [formGroup]="documentFormGroup">
+      <ng-template matStepLabel>Fill out</ng-template>
+
+      <div class="ui-g-12 ui-md-12 ui-fluid">
+        <div class="ui-g-6 ui-md-6 ui-fluid">
+          <mat-form-field>
+            <input type="text" formControlName="documentName" [(ngModel)]="selectDocument.documentName" placeholder="Document Name"
+              matInput>
+          </mat-form-field>
+        </div>
+
+        <div class="ui-g-6 ui-md-6 ui-fluid">
+          <mat-form-field>
+            <input type="number" min="0" step="0.01" formControlName="price" [(ngModel)]="selectDocument.price"
+              placeholder="Price" pattern="[0-9]*" matInput>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="ui-g-12 ui-md-12 ui-fluid">
+        <div>
+          <mat-label>Status</mat-label>
+          <br />
+          <mat-radio-group class="isActive" [(ngModel)]="selectDocument.isActive" formControlName="isActive">
+            <mat-radio-button class="isActive" *ngFor="let isActive of isActivated" [value]="isActivate" placeholder="Status">
+              {{isActive}}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <div>
+          <mat-form-field>
+            <input matInput disabled [matDatepicker]="dateCreated" formControlName="dateCreated" [(ngModel)]="selectDocument.dateCreated"
+              placeholder="Date Created" readonly [min]="minDate">
+            <mat-datepicker-toggle matSuffix [for]="dateCreated"></mat-datepicker-toggle>
+            <mat-datepicker #dateCreated disabled="false"></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="centerButtons">
+        <button mat-raised-button (click)="saveDocument()">Save</button>
+        <button mat-raised-button (click)="okDelete()" *ngIf="isDeleteDocument == true">Delete</button>
+        <button mat-raised-button (click)="cancelDocument()">Cancel</button>
+      </div>
+    </form>
+  </mat-step>
+</mat-horizontal-stepper>

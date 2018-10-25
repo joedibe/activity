@@ -3,7 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2016
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineActivity.EFCore", "OnlineActivity.EFCore\OnlineActivity.EFCore.csproj", "{6063DA10-9C33-4FC4-9002-415BD77353AD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineActivity.EFCore.WebApi", "OnlineActivity.EFCore\OnlineActivity.EFCore.WebApi.csproj", "{6063DA10-9C33-4FC4-9002-415BD77353AD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.0 Presentation", "1.0 Presentation", "{C65F25C4-A43D-47CB-9D9A-ED7CB2EF605E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.0 API", "2.0 API", "{1B48C68D-46CB-4195-A9EE-78A1D67CD761}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.0 Domain", "3.0 Domain", "{542517F0-687A-4E4A-AB68-FA9AF4C68442}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.0 Infra", "4.0 Infra", "{1D2430AF-5460-4AC5-BB1C-BC6EBB60079E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineActivity.EFCore.Domain", "OnlineActivity.EFCore.Domain\OnlineActivity.EFCore.Domain.csproj", "{134E143D-D530-4091-8EA4-DEBF440606FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineActivity.EFCore.Domain.Models", "OnlineAcivity.EFCore.Domain.Models\OnlineActivity.EFCore.Domain.Models.csproj", "{27B17337-1736-4DDD-AFFA-5EC2D3DA9CEB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineActivity.EFCore.Infra", "OnlineActivity.EFCore.Infra\OnlineActivity.EFCore.Infra.csproj", "{4BF2BA04-8E98-4D4F-B88B-8407DBB4276D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +29,27 @@ Global
 		{6063DA10-9C33-4FC4-9002-415BD77353AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6063DA10-9C33-4FC4-9002-415BD77353AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6063DA10-9C33-4FC4-9002-415BD77353AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{134E143D-D530-4091-8EA4-DEBF440606FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{134E143D-D530-4091-8EA4-DEBF440606FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{134E143D-D530-4091-8EA4-DEBF440606FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{134E143D-D530-4091-8EA4-DEBF440606FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27B17337-1736-4DDD-AFFA-5EC2D3DA9CEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27B17337-1736-4DDD-AFFA-5EC2D3DA9CEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27B17337-1736-4DDD-AFFA-5EC2D3DA9CEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27B17337-1736-4DDD-AFFA-5EC2D3DA9CEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BF2BA04-8E98-4D4F-B88B-8407DBB4276D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BF2BA04-8E98-4D4F-B88B-8407DBB4276D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BF2BA04-8E98-4D4F-B88B-8407DBB4276D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BF2BA04-8E98-4D4F-B88B-8407DBB4276D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6063DA10-9C33-4FC4-9002-415BD77353AD} = {1B48C68D-46CB-4195-A9EE-78A1D67CD761}
+		{134E143D-D530-4091-8EA4-DEBF440606FC} = {542517F0-687A-4E4A-AB68-FA9AF4C68442}
+		{27B17337-1736-4DDD-AFFA-5EC2D3DA9CEB} = {542517F0-687A-4E4A-AB68-FA9AF4C68442}
+		{4BF2BA04-8E98-4D4F-B88B-8407DBB4276D} = {1D2430AF-5460-4AC5-BB1C-BC6EBB60079E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5BB55D59-C990-403A-B374-469A7B45B08E}

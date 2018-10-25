@@ -10,17 +10,25 @@
 
     <!-- Set this to true if you enable server-side prerendering -->
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
+    <UserSecretsId>0b97b424-2329-44f4-89cb-59d4ff5eded6</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="2.6.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.1.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
     <Content Remove="$(SpaRoot)**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OnlineAcivity.EFCore.Domain.Models\OnlineActivity.EFCore.Domain.Models.csproj" />
+    <ProjectReference Include="..\OnlineActivity.EFCore.Domain\OnlineActivity.EFCore.Domain.csproj" />
+    <ProjectReference Include="..\OnlineActivity.EFCore.Infra\OnlineActivity.EFCore.Infra.csproj" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

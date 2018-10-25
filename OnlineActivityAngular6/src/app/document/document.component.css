@@ -1,0 +1,21 @@
+.table{
+    width: 94%;
+    margin-top: 20px;
+    margin-left: 3%;
+    margin-right: 3%;
+}
+
+button{
+    font-size: 16px;
+}
+
+.addDocument{
+    margin-top: 20px;
+    margin-left: 3%;
+}
+
+.filter{
+    width: 40%;
+    float: right;
+    margin-right: 3%;
+}
